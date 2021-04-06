@@ -1,24 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+// class App extends React.Component {
+
+//   constructor(props){
+//     super(props);
+
+//     this.state = {
+//       name: 'Riya',
+//       smokes: true
+//     }
+
+//   }
+
+//   componentWillMount() {
+
+//   }
+
+//   componentDidMount() {
+
+//   }
+
+//   shouldComponentUpdate(prevProps, nextProps) {
+//     if(prevProps === nextProps) return false;
+//     return false;
+//   }
+
+//   componentWillUnmount() {
+
+//   }
+
+//   clickHandler = () => {
+//     this.setState({
+//       smokes: !this.state.smokes
+//     })
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h2>Hello my name is {this.state.name} and I {this.state.smokes ? 'do' : 'dont'} smoke</h2>
+//         <button onClick={this.clickHandler}>Click Me</button>
+//       </div>
+//     );
+//   }
+
+// }
+
+const App = (props) => {
+  const [state, setState] = React.useState({
+    name: 'Riya',
+    smokes: true
+  });
+
+  React.useEffect(()=>{
+    // component did mount
+    return ()=> {
+      // component will unmount
+    }
+  }, []);
+
+  const clickHandler = () => {
+    setState({
+      ...state,
+      smokes: !state.smokes
+    })
+  }
+
+  return(
+      <div>
+        <h2>Hello my name is {state.name} and I {state.smokes ? 'do' : 'dont'} smoke</h2>
+        <button onClick={clickHandler}>Click Me</button>
+      </div>
   );
 }
 
