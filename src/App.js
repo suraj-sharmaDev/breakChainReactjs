@@ -1,77 +1,104 @@
-import React from 'react';
+// import React from 'react';
 
 // class App extends React.Component {
-
-//   constructor(props){
+//   constructor(props) {
+//     console.log('constructor');
 //     super(props);
-
 //     this.state = {
-//       name: 'Riya',
-//       smokes: true
+//       name: "Suraj",
+//       age: 24,
+//       printA: () => console.log('hello')
 //     }
-
-//   }
-
-//   componentWillMount() {
-
 //   }
 
 //   componentDidMount() {
-
+//     console.log('this is compoent did mount')
 //   }
 
-//   shouldComponentUpdate(prevProps, nextProps) {
-//     if(prevProps === nextProps) return false;
-//     return false;
-//   }
-
-//   componentWillUnmount() {
-
-//   }
-
-//   clickHandler = () => {
+//   onIncrementAge = () => {
 //     this.setState({
-//       smokes: !this.state.smokes
+//       age: this.state.age + 1
+//     }, ()=>{
+//       console.log('incrementing age', this.state.age);
 //     })
 //   }
 
-//   render() {
-//     return (
-//       <div>
-//         <h2>Hello my name is {this.state.name} and I {this.state.smokes ? 'do' : 'dont'} smoke</h2>
-//         <button onClick={this.clickHandler}>Click Me</button>
-//       </div>
-//     );
+//   onDecrementAge = () => {
+//     this.setState({
+//       age: this.state.age - 1
+//     }, ()=>{
+//       console.log('decrementing age', this.state.age);
+//     })
+//   }  
+
+//   onChangeName = () => {
+//     this.setState({
+//       name: 'Muhassin'
+//     })
 //   }
 
-// }
+//   componentWillUnmount() {
+//     console.log('This is last life cycle');
+//   }
 
-const App = (props) => {
-  const [state, setState] = React.useState({
-    name: 'Riya',
-    smokes: true
-  });
+//   // shouldComponentUpdate(nextProps, nextState) {
+//   //   // if(nextState.age !== this.state.age) return false;
+//   //   if(nextState.name !== this.state.name) return true;
+//   //   return false;
+//   // }
 
-  React.useEffect(()=>{
-    // component did mount
-    return ()=> {
-      // component will unmount
+//   render() {
+//     console.log('rendering');
+//     return(
+//       <>
+//         <p>{this.state.name} has age {this.state.age}</p>
+//         <button onClick={this.onIncrementAge}>Increment Age</button>
+//         <button onClick={this.onDecrementAge}>Decrement Age</button>
+//         <button onClick={this.onChangeName}>Change Name</button>        
+//       </>
+//     );
+//   }
+  
+// };
+
+import React from 'react';
+
+const App = props => {
+  const [name, setName] = React.useState("Suraj");
+  const [age, setAge] = React.useState(24);
+
+  React.useEffect(()=> {
+    console.log('This is component did mount');
+    return ()=>{
+      // unmount
+      console.log('This is end of life cycle');
     }
   }, []);
 
-  const clickHandler = () => {
-    setState({
-      ...state,
-      smokes: !state.smokes
-    })
+  React.useEffect(()=>{
+    // this happens in componentDidMount
+    console.log('Age changes....');
+  }, [age]);
+
+  React.useEffect(()=>{
+    console.log('Name changes ...');
+  }, [name])
+
+  const onIncrementAge = () => {
+    setAge(age + 1);
   }
 
-  return(
-      <div>
-        <h2>Hello my name is {state.name} and I {state.smokes ? 'do' : 'dont'} smoke</h2>
-        <button onClick={clickHandler}>Click Me</button>
-      </div>
+  const onDecrementAge = () => {
+    setAge(age - 1);
+  }
+
+  return (
+    <>
+      <p>{name} has age {age}</p>
+      <button onClick={onIncrementAge}>Increment Age</button>
+      <button onClick={onDecrementAge}>Decrement Age</button>      
+    </>
   );
 }
 
-export default App;
+export default React.memo(App);
